@@ -1,0 +1,1 @@
+apktool-python==1.0.2

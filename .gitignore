@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Reports & runtime artifacts
+reports/*.json
+reports/*.txt
+reports/*.pcap
+
+# Apktool output
+/tmp/
+
+# OS / editor files
+.DS_Store
+*.swp
