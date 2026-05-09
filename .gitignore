@@ -14,3 +14,13 @@ reports/*.pcap
 # OS / editor files
 .DS_Store
 *.swp
+
+
+
+venv/
+__pycache__/
+*.pyc
+/tmp/
+reports/*.pdf
+reports/*.json
+reports/*.txt

@@ -1,5 +1,7 @@
 import os
 import sys
+from tabulate import tabulate
+import json
 from static_analysis.analyze_apk import run_static
 from dynamic_analysis.parse_logcat import parse_logcat
 from dynamic_analysis.parse_pcap import parse_pcap
@@ -38,3 +40,38 @@ with open("reports/final_risk_report.json", "w") as f:
     f.write(final_report)
 
 print("[+] Analysis complete. Report generated.")
+report_data = json.loads(final_report)
+
+summary_table = [
+    ["Overall Risk", report_data.get("overall_risk")],
+    ["Static Findings", report_data.get("static_findings_count")],
+    ["Dynamic Log Findings", report_data.get("dynamic_logcat_findings_count")],
+    ["Dynamic Network Findings", report_data.get("dynamic_network_findings_count")]
+]
+
+print("\n================ APK SECURITY REPORT ================")
+
+print(
+    tabulate(
+        summary_table,
+        headers=["Metric", "Value"],
+        tablefmt="grid"
+    )
+)
+
+if "static_summary" in report_data:
+
+    print("\n================ FINDING SUMMARY ================")
+
+    category_table = []
+
+    for category, count in report_data["static_summary"].items():
+        category_table.append([category, count])
+
+    print(
+        tabulate(
+            category_table,
+            headers=["Category", "Count"],
+            tablefmt="fancy_grid"
+        )
+    )
