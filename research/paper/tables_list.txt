@@ -1,0 +1,13 @@
+================================================================================
+LIST OF TABLES - ACLDS V2.0 RESEARCH PAPER
+================================================================================
+
+Table I: Comparison of Existing Android Security Tools
+Table II: Detected Vulnerability Categories
+Table III: OWASP Mobile Top 10 Mapping
+Table IV: Severity Weights
+Table V: Risk Level Classification
+Table VI: Experimental Results
+Table VII: APK Comparison Results
+Table VIII: Performance Evaluation
+Table IX: Runtime Statistics

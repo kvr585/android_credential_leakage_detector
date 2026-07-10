@@ -1,0 +1,27 @@
+================================================================================
+LIST OF FIGURES - ACLDS V2.0 RESEARCH PAPER (SYNCHRONIZED METADATA)
+================================================================================
+
+Figure 1: Overall Architecture of the Android Credential Leakage Detection System (ACLDS).
+- Path: research/figures/architecture.png
+- Description: High-level overview of the pipe-and-filter security analysis pipeline. Shows the ingestion of the target APK file and optional dynamic logs, the flow through static (decompilation, regex) and dynamic (logcat, PCAP) analyzers, the correlation engine, and the output report compilation.
+
+Figure 2: Dashboard of the ACLDS Desktop Application.
+- Path: research/figures/gui_dashboard.png
+- Description: Screenshot showing the main dashboard of the PySide6 Desktop application with telemetry widgets, rule base counters, and recent scan logs.
+
+Figure 3: CLI analysis showing detected vulnerabilities and calculated risk score.
+- Path: research/figures/cli_analyze.png
+- Description: Screenshot of the CLI output terminal displaying tabular assessment summary and risk metrics for a single APK scan.
+
+Figure 4: Generated interactive HTML security report.
+- Path: research/figures/html_report.png
+- Description: Preview layout of the responsive, self-contained HTML assessment report dashboard.
+
+Figure 5: Severity distribution and vulnerability category statistics.
+- Path: research/figures/charts.png
+- Description: Severity and category distribution charts automatically rendered by Matplotlib.
+
+Figure 6: APK comparison illustrating security posture differences.
+- Path: research/figures/cli_compare.png
+- Description: CLI Output showing the delta comparison of two APK builds to analyze posture regressions and patched flaws.

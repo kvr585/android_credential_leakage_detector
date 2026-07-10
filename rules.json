@@ -1,0 +1,380 @@
+[
+  {
+    "category": "Hardcoded Credentials",
+    "severity": "HIGH",
+    "confidence": 0.90,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "Sensitive credentials such as passwords, credentials, or usernames were found hardcoded in source strings or Smali code.",
+    "recommendation": "Do not store secrets in source code. Retrieve credentials dynamically at runtime using secure APIs or utilize the Android Keystore system to protect keys.",
+    "keywords": ["password", "passwd", "pwd", "username", "user="],
+    "patterns": [
+      "INSERT INTO.*(password|passwd)",
+      "(password|passwd)\\s*=\\s*['\"].+['\"]",
+      "username\\s*=\\s*['\"].+['\"]"
+    ]
+  },
+  {
+    "category": "API Keys",
+    "severity": "HIGH",
+    "confidence": 0.90,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "Exposed generic API keys or client identifiers were identified in resource strings or smali code.",
+    "recommendation": "Restrict API keys to specific IP addresses, referrers, or Android packages via backend consoles. Avoid static placement.",
+    "keywords": ["api_key", "apikey", "client_id"],
+    "patterns": [
+      "(api_key|apikey|client_id)\\s*=\\s*['\"][A-Za-z0-9_\\-\\.\\@\\%\\+\\/]{16,}['\"]"
+    ]
+  },
+  {
+    "category": "JWT Tokens",
+    "severity": "HIGH",
+    "confidence": 0.95,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "JSON Web Token (JWT) signatures were found embedded within application resources or smali variables.",
+    "recommendation": "Move authorization tokens out of application bytecode. Retrieve tokens dynamically upon user authentication.",
+    "keywords": ["eyJ"],
+    "patterns": [
+      "eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]*"
+    ]
+  },
+  {
+    "category": "OAuth Tokens",
+    "severity": "HIGH",
+    "confidence": 0.90,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "Hardcoded OAuth client access or refresh tokens were discovered.",
+    "recommendation": "Use OAuth flow protocols dynamically and obtain authentication tokens securely at runtime, storing them in encrypted local storage.",
+    "keywords": ["oauth_token", "access_token", "refresh_token"],
+    "patterns": [
+      "(oauth_token|access_token|refresh_token)\\s*=\\s*['\"][A-Za-z0-9_\\-\\.\\+\\/]{16,}['\"]"
+    ]
+  },
+  {
+    "category": "Bearer Tokens",
+    "severity": "HIGH",
+    "confidence": 0.90,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "Static authorization Bearer headers or bearer tokens were detected in the application code.",
+    "recommendation": "Authenticate dynamically and store Bearer tokens inside the Android Keystore rather than hardcoding.",
+    "keywords": ["Bearer "],
+    "patterns": [
+      "Bearer\\s+[A-Za-z0-9_\\-\\.\\+\\/\\=]{20,}"
+    ]
+  },
+  {
+    "category": "Basic Authentication",
+    "severity": "HIGH",
+    "confidence": 0.95,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "Basic Authorization header parameters (base64 encoded credentials) were found statically defined in code.",
+    "recommendation": "Avoid Basic Authentication headers in client-side code. Use token-based dynamic authentication.",
+    "keywords": ["Basic "],
+    "patterns": [
+      "Basic\\s+[A-Za-z0-9\\+\\/\\=]{10,}"
+    ]
+  },
+  {
+    "category": "AWS Access Keys",
+    "severity": "CRITICAL",
+    "confidence": 0.98,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "AWS access key identifiers or secret tokens were identified, allowing direct AWS cloud environment queries.",
+    "recommendation": "Revoke leaked AWS keys immediately. Use temporary security credentials via AWS STS or Amazon Cognito.",
+    "keywords": ["AKIA", "aws_access_key"],
+    "patterns": [
+      "AKIA[0-9A-Z]{16}",
+      "aws_access_key_id\\s*=\\s*['\"][0-9A-Z]{20}['\"]"
+    ]
+  },
+  {
+    "category": "Firebase URLs",
+    "severity": "MEDIUM",
+    "confidence": 0.95,
+    "owasp": "M9",
+    "cwe": "CWE-200",
+    "description": "Direct Firebase database endpoints were discovered in code assets.",
+    "recommendation": "Ensure Firebase database rules require authentication and enforce access controls to prevent public reads/writes.",
+    "keywords": ["firebaseio.com"],
+    "patterns": [
+      "https://[A-Za-z0-9_\\-]+\\.firebaseio\\.com"
+    ]
+  },
+  {
+    "category": "Google API Keys",
+    "severity": "HIGH",
+    "confidence": 0.98,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "Exposed Google API keys were identified, which could allow unauthorized usage of Google services on the developer's quota.",
+    "recommendation": "Apply package name restrictions and API limits in the Google Cloud Console for the exposed key.",
+    "keywords": ["AIza"],
+    "patterns": [
+      "AIza[0-9A-Za-z\\-_]{35}"
+    ]
+  },
+  {
+    "category": "SharedPreferences Storage",
+    "severity": "MEDIUM",
+    "confidence": 0.85,
+    "owasp": "M9",
+    "cwe": "CWE-922",
+    "description": "Usage of standard SharedPreferences indicates local key-value storage of sensitive key/value entries in plaintext XML files.",
+    "recommendation": "Utilize EncryptedSharedPreferences to transparently encrypt sensitive key/value storage.",
+    "keywords": ["SharedPreferences", "getSharedPreferences", "edit("],
+    "patterns": [
+      "SharedPreferences.*(password|token|secret|key)",
+      "getSharedPreferences\\s*\\(\\s*['\"][^'\"]+(password|pref)['\"]"
+    ]
+  },
+  {
+    "category": "SQLite Password Storage",
+    "severity": "MEDIUM",
+    "confidence": 0.85,
+    "owasp": "M9",
+    "cwe": "CWE-922",
+    "description": "Creation or usage of database SQL schemes designed to record plaintext user passwords or card metrics.",
+    "recommendation": "Encrypt SQLite database backups on the device using SQLCipher libraries.",
+    "keywords": ["sqlite", "CREATE TABLE", "insert("],
+    "patterns": [
+      "CREATE TABLE.*(password|passwd|pwd|token|credit)",
+      "INSERT INTO.*(password|passwd|pwd|token|credit)"
+    ]
+  },
+  {
+    "category": "External Storage usage",
+    "severity": "MEDIUM",
+    "confidence": 0.85,
+    "owasp": "M9",
+    "cwe": "CWE-921",
+    "description": "Application writes sensitive info or reads executables from external SD Card storages, which are shared globally.",
+    "recommendation": "Store private data exclusively in the internal application cache directories.",
+    "keywords": ["getExternalStorageDirectory", "getExternalFilesDir", "sdcard"],
+    "patterns": [
+      "getExternalStorageDirectory\\(\\)",
+      "getExternalFilesDir\\(",
+      "/sdcard/"
+    ]
+  },
+  {
+    "category": "Insecure Network Protocol",
+    "severity": "MEDIUM",
+    "confidence": 0.90,
+    "owasp": "M5",
+    "cwe": "CWE-319",
+    "description": "Unencrypted HTTP endpoints are defined inside application files, permitting transit intercept vulnerabilities.",
+    "recommendation": "Replace all http:// endpoints with https:// configurations to ensure encrypted network payloads.",
+    "keywords": ["http://"],
+    "patterns": [
+      "http://[a-zA-Z0-9_\\-\\.]+\\.[a-zA-Z]{2,6}"
+    ]
+  },
+  {
+    "category": "Cleartext Traffic permitted",
+    "severity": "MEDIUM",
+    "confidence": 0.95,
+    "owasp": "M5",
+    "cwe": "CWE-319",
+    "description": "Cleartext network traffic is allowed system-wide in application configs.",
+    "recommendation": "Configure Network Security Configurations and remove cleartextTrafficPermitted flags in the production manifest.",
+    "keywords": ["cleartextTrafficPermitted", "usesCleartextTraffic"],
+    "patterns": [
+      "cleartextTrafficPermitted\\s*=\\s*\"true\"",
+      "usesCleartextTraffic\\s*=\\s*\"true\""
+    ]
+  },
+  {
+    "category": "WebView JavaScript enabled",
+    "severity": "LOW",
+    "confidence": 0.90,
+    "owasp": "M7",
+    "cwe": "CWE-749",
+    "description": "JavaScript execution is enabled within WebViews, which could lead to XSS exploitation.",
+    "recommendation": "Do not enable setJavaScriptEnabled unless strictly required by application pages.",
+    "keywords": ["setJavaScriptEnabled", "WebSettings"],
+    "patterns": [
+      "setJavaScriptEnabled\\(\\s*const/4\\s+v[0-9]+,\\s*0x1\\s*\\)",
+      "setJavaScriptEnabled\\(\\s*true\\s*\\)"
+    ]
+  },
+  {
+    "category": "addJavascriptInterface vulnerability",
+    "severity": "HIGH",
+    "confidence": 0.95,
+    "owasp": "M7",
+    "cwe": "CWE-749",
+    "description": "WebView addJavascriptInterface bindings expose internal Java APIs to JavaScript context, risking remote code execution in older devices.",
+    "recommendation": "Perform strict WebView origin checking and target API level 17+ to limit reflections.",
+    "keywords": ["addJavascriptInterface"],
+    "patterns": [
+      "addJavascriptInterface\\("
+    ]
+  },
+  {
+    "category": "Weak Cryptographic Algorithm (MD5)",
+    "severity": "MEDIUM",
+    "confidence": 0.90,
+    "owasp": "M10",
+    "cwe": "CWE-328",
+    "description": "MD5 hash generation is used. MD5 is highly vulnerable to hash collision attacks.",
+    "recommendation": "Migrate algorithms to SHA-256 or bcrypt for password checking and integrity verification.",
+    "keywords": ["MD5", "MessageDigest.getInstance"],
+    "patterns": [
+      "getInstance\\(\\s*['\"]MD5['\"]",
+      "\"MD5\""
+    ]
+  },
+  {
+    "category": "Weak Cryptographic Algorithm (SHA1)",
+    "severity": "MEDIUM",
+    "confidence": 0.90,
+    "owasp": "M10",
+    "cwe": "CWE-328",
+    "description": "SHA-1 cryptographical hashing is configured, which is cryptographically broken.",
+    "recommendation": "Replace SHA-1 configurations with SHA-256 or SHA-3 algorithms.",
+    "keywords": ["SHA-1", "SHA1"],
+    "patterns": [
+      "getInstance\\(\\s*['\"]SHA-1['\"]",
+      "\"SHA-1\""
+    ]
+  },
+  {
+    "category": "Weak Cryptographic Algorithm (DES)",
+    "severity": "HIGH",
+    "confidence": 0.90,
+    "owasp": "M10",
+    "cwe": "CWE-327",
+    "description": "DES cipher encryption is initialized. DES uses weak key sizes that are easily broken by modern hardware.",
+    "recommendation": "Upgrade cipher structures to utilize AES with key sizes of 256 bits.",
+    "keywords": ["DES", "Cipher.getInstance"],
+    "patterns": [
+      "Cipher\\.getInstance\\(\\s*['\"]DES['\"]",
+      "\"DES/ECB/PKCS5Padding\""
+    ]
+  },
+  {
+    "category": "Weak Cryptographic Algorithm (ECB)",
+    "severity": "MEDIUM",
+    "confidence": 0.90,
+    "owasp": "M10",
+    "cwe": "CWE-327",
+    "description": "ECB cipher blocks encryption mode is in use. ECB leaks patterns in encrypted messages.",
+    "recommendation": "Utilize cipher block modes like GCM or CBC with a randomly generated initialization vector.",
+    "keywords": ["ECB", "AES/ECB"],
+    "patterns": [
+      "AES/ECB/"
+    ]
+  },
+  {
+    "category": "Exported Component exposure (Activity)",
+    "severity": "MEDIUM",
+    "confidence": 0.90,
+    "owasp": "M8",
+    "cwe": "CWE-926",
+    "description": "Android activities are exported without access permissions, which could allow external intent injection.",
+    "recommendation": "Remove exported tags or declare signature protection permissions in the Android Manifest.",
+    "keywords": ["android:exported=\"true\""],
+    "patterns": [
+      "<activity[^>]+android:exported\\s*=\\s*\"true\""
+    ]
+  },
+  {
+    "category": "Exported Component exposure (Service)",
+    "severity": "MEDIUM",
+    "confidence": 0.90,
+    "owasp": "M8",
+    "cwe": "CWE-926",
+    "description": "Services are exported, allowing external programs to bind and invoke code functions.",
+    "recommendation": "Enforce signature level permissions to limit binders to signed packages.",
+    "keywords": ["android:exported=\"true\""],
+    "patterns": [
+      "<service[^>]+android:exported\\s*=\\s*\"true\""
+    ]
+  },
+  {
+    "category": "Exported Component exposure (Receiver)",
+    "severity": "MEDIUM",
+    "confidence": 0.90,
+    "owasp": "M8",
+    "cwe": "CWE-926",
+    "description": "Broadcast Receivers are exported, which could allow unauthorized Intent spoofing attacks.",
+    "recommendation": "Enforce permissions on Broadcast Receivers or register them dynamically in code with local flags.",
+    "keywords": ["android:exported=\"true\""],
+    "patterns": [
+      "<receiver[^>]+android:exported\\s*=\\s*\"true\""
+    ]
+  },
+  {
+    "category": "SQL Injection vulnerability",
+    "severity": "HIGH",
+    "confidence": 0.85,
+    "owasp": "M4",
+    "cwe": "CWE-89",
+    "description": "Raw string concatenations are passed directly to rawQuery/execSQL sqlite queries.",
+    "recommendation": "Utilize parameterized query templates (selectionArgs) to enforce input validation.",
+    "keywords": ["rawQuery", "execSQL"],
+    "patterns": [
+      "rawQuery\\(\\s*['\"].*SELECT.*WHERE.*=.*['\"]",
+      "rawQuery\\(\\s*v[0-9]+,\\s*null\\s*\\)"
+    ]
+  },
+  {
+    "category": "Insecure File Sharing",
+    "severity": "MEDIUM",
+    "confidence": 0.85,
+    "owasp": "M8",
+    "cwe": "CWE-200",
+    "description": "Exposing local private filesystem files to external apps using insecure file:// scheme intents.",
+    "recommendation": "Transition to dynamic FileProvider content:// schemes.",
+    "keywords": ["file://", "FileProvider"],
+    "patterns": [
+      "file:///",
+      "Uri\\.fromFile\\("
+    ]
+  },
+  {
+    "category": "Debug Mode enabled",
+    "severity": "LOW",
+    "confidence": 0.95,
+    "owasp": "M7",
+    "cwe": "CWE-489",
+    "description": "debuggable=true config permits connecting debuggers at runtime to read app memory.",
+    "recommendation": "Ensure android:debuggable is false in production manifest profiles.",
+    "keywords": ["android:debuggable=\"true\""],
+    "patterns": [
+      "android:debuggable\\s*=\\s*\"true\""
+    ]
+  },
+  {
+    "category": "Sensitive Data Log exposure",
+    "severity": "LOW",
+    "confidence": 0.85,
+    "owasp": "M1",
+    "cwe": "CWE-532",
+    "description": "System printing mechanisms write private logs containing credential keywords.",
+    "recommendation": "Remove debug logging routines from release builds using Proguard templates.",
+    "keywords": ["Log.d", "Log.v", "Log.i"],
+    "patterns": [
+      "Log\\.(d|v|i)\\(\\s*.*(password|pwd|username|token|secret|key)"
+    ]
+  },
+  {
+    "category": "Secret Keys exposure",
+    "severity": "HIGH",
+    "confidence": 0.90,
+    "owasp": "M9",
+    "cwe": "CWE-798",
+    "description": "Static secret keys or decryption passwords are kept as code variables.",
+    "recommendation": "Avoid using symmetric static key variables in APK storage models.",
+    "keywords": ["secret_key", "secretkey", "private_key"],
+    "patterns": [
+      "(secret_key|secretkey|private_key)\\s*=\\s*['\"].+['\"]"
+    ]
+  }
+]

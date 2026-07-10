@@ -1,26 +1,38 @@
-# Python
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python caching & byte-code
 __pycache__/
 *.pyc
-venv/
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
 
-# Reports & runtime artifacts
-reports/*.json
-reports/*.txt
-reports/*.pcap
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
 
-# Apktool output
-/tmp/
-
-# OS / editor files
-.DS_Store
+# IDE / Editors
+.idea/
+.vscode/
+*.DS_Store
 *.swp
 
+# Package build & distribution artifacts
+build/
+dist/
+*.egg-info/
 
-
-venv/
-__pycache__/
-*.pyc
-/tmp/
-reports/*.pdf
-reports/*.json
-reports/*.txt
+# Project scanning data & logs
+reports/
+runtime_data/
+logs/

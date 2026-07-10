@@ -1,1 +1,5 @@
-vbhb
+GET /api/v1/user HTTP/1.1
+Host: insecure.example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.signature
+Cookie: session_id=sess_987654321
+User-Agent: Mozilla/5.0

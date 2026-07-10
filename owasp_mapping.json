@@ -1,0 +1,72 @@
+{
+  "M1": {
+    "Category": "M1: Improper Credential Usage",
+    "Description": "This category covers vulnerabilities resulting from hardcoding credentials, transmitting credentials in plaintext, or using weak authentication flows.",
+    "Risk": "Exposure of backend APIs, administrative dashboards, or other users' private data if hardcoded keys or credentials are leaked.",
+    "Recommendation": "Utilize secure credential management systems like Android Keystore, and never store plaintext keys in source/assets.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M1-Improper-Credential-Usage/"
+  },
+  "M2": {
+    "Category": "M2: Inadequate Supply Chain Security",
+    "Description": "Vulnerabilities arising from third-party dependencies, malicious packages, or outdated SDKs loaded in the app.",
+    "Risk": "Possibility of remote code execution or data leakage through a compromised third-party library.",
+    "Recommendation": "Regularly audit third-party libraries and pin dependency versions to trusted releases.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M2-Inadequate-Supply-Chain-Security/"
+  },
+  "M3": {
+    "Category": "M3: Insecure Authentication/Authorization",
+    "Description": "Failures in verifying user identity or enforcing proper permissions on the client or server side.",
+    "Risk": "Bypassing authentication or accessing elevated administrative features without authorization.",
+    "Recommendation": "Implement server-side authentication validation and verify access tokens securely.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M3-Insecure-Authentication-Authorization/"
+  },
+  "M4": {
+    "Category": "M4: Insufficient Input/Output Validation",
+    "Description": "Failing to sanitize inputs from untrusted sources, potentially leading to SQL injection or script execution.",
+    "Risk": "Exploitation of internal SQLite databases or cross-site scripting in WebViews.",
+    "Recommendation": "Use parameterized queries and validate all input sources (Intents, files, inputs).",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M4-Insufficient-Input-Output-Validation/"
+  },
+  "M5": {
+    "Category": "M5: Insecure Communication",
+    "Description": "Transmission of sensitive data over unencrypted (HTTP) or weakly encrypted channels.",
+    "Risk": "Man-in-the-Middle (MitM) attacks leading to intercepting active session tokens or credentials.",
+    "Recommendation": "Enforce SSL/TLS for all connections, declare cleartextTrafficPermitted as false, and implement certificate pinning.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M5-Insecure-Communication/"
+  },
+  "M6": {
+    "Category": "M6: Inadequate Privacy Controls",
+    "Description": "Accidental exposure of PII (Personally Identifiable Information) or sensitive user metrics to analytics or logging.",
+    "Risk": "Legal/regulatory non-compliance (e.g. GDPR) and violation of user privacy.",
+    "Recommendation": "Minimize PII storage and encrypt any data tracked for analysis or reporting.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M6-Inadequate-Privacy-Controls/"
+  },
+  "M7": {
+    "Category": "M7: Insufficient Binary Protection",
+    "Description": "Lack of code obfuscation, integrity checks, or anti-debug guards, enabling easy reverse engineering.",
+    "Risk": "Attackers decompiling the application, discovering proprietary algorithms, and rewriting application logic.",
+    "Recommendation": "Enable ProGuard/R8 obfuscation and incorporate anti-debugging/anti-tampering library components.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M7-Insufficient-Binary-Protection/"
+  },
+  "M8": {
+    "Category": "M8: Security Decisions via Untrusted Inputs",
+    "Description": "Using weak client-side checks or spoofable Intent data to make critical access control decisions.",
+    "Risk": "Unauthorized access to application features through forged IPC signals or Intents.",
+    "Recommendation": "Perform critical security state checks on a secure backend server.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M8-Security-Decisions-via-Untrusted-Inputs/"
+  },
+  "M9": {
+    "Category": "M9: Insecure Data Storage",
+    "Description": "Storing sensitive information in unprotected files, databases, or preferences on the local filesystem.",
+    "Risk": "Malicious applications or root users reading private data directly from the device storage.",
+    "Recommendation": "Store private data in internal directories and encrypt SQLite database backups.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M9-Insecure-Data-Storage/"
+  },
+  "M10": {
+    "Category": "M10: Insufficient Cryptography",
+    "Description": "Use of obsolete or weak cryptographic algorithms (MD5, SHA1, DES) or poor key management.",
+    "Risk": "Fast decryption of intercepted data or compromised storage because of weak key design.",
+    "Recommendation": "Implement industry-standard cryptography protocols like AES-GCM and RSA-OAEP.",
+    "Reference": "https://owasp.org/www-project-mobile-top-10/2024/M10-Insufficient-Cryptography/"
+  }
+}
